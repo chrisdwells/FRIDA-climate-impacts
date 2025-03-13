@@ -8,7 +8,8 @@ percentiles = np.linspace(0.025, 0.975, 11)
 pkl_files = [
     '../../climate-energy-supply/data/outputs/energy_suppy_output_dict.pickle',
     '../../temperature-mortality/data/outputs/mortality_output_dict.pickle',
-    '../../extremes-exposure/data/outputs/exposure_output_dict.pickle'
+    '../../extremes-exposure/data/outputs/exposure_output_dict.pickle',
+    '../../climate-crops-impacts/data/outputs/crops_output_dict.pickle',
     ]
 
 columns = list(percentiles)
