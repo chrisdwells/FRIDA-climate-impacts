@@ -27,7 +27,7 @@ for f in pkl_files:
         if var != 'Percentiles':
             
             row_in = list(pkl_in[var])
-            row_in.insert(0, var)
+            row_in.insert(0, var[:-3])
             
             df.loc[len(df)] = row_in
 
