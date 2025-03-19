@@ -2,7 +2,8 @@ import matplotlib.pyplot as plt
 # import pandas as pd
 import pickle
 import numpy as np
-
+import string
+string.ascii_lowercase
 # For Figure 2 in the climate impacts documentation paper
 
 # some have "sampled percentiles", others just on 3 levels, with
@@ -31,7 +32,11 @@ co2_plot = np.linspace(400, 800, 50)
 nx = 5
 ny = 5
 fig, axs = plt.subplots(nx, ny, figsize=(15, 15))
+
 axs = axs.ravel()
+
+for j in np.arange(nx*ny):
+    axs[j].text(-0.15, 1.05, f'({string.ascii_lowercase[j]})', transform=axs[j].transAxes)
 
 i = 0
 
@@ -56,9 +61,9 @@ for p_i, perc in enumerate(percentiles):
     resp = a[p_i] + b[p_i]*abs_t_plot + c[p_i]*abs_t_plot**2 + d[p_i]*CO2_fix
     axs[i].plot(abs_t_plot, resp, color=colors_p[perc], zorder=zorders_p[perc])
     
-axs[i].set_title(f'Crops, CO2 = {CO2_fix}ppm')
+axs[i].set_title(fr'Crops, CO$_{2}$ = {CO2_fix} ppm')
 axs[i].set_ylabel('% productivity change')
-axs[i].set_xlabel('Absolute Temperature (C)')
+axs[i].set_xlabel(r'Absolute Temperature ($^{\circ}$C)')
 
 i += 1
 
@@ -66,9 +71,9 @@ for p_i, perc in enumerate(percentiles):
     resp = a[p_i] + b[p_i]*T_fix + c[p_i]*T_fix**2 + d[p_i]*co2_plot
     axs[i].plot(co2_plot, resp, color=colors_p[perc], zorder=zorders_p[perc])
     
-axs[i].set_title(f'Crops, Temp = {T_fix}C')
+axs[i].set_title(f'Crops, Temp = {T_fix} ' + r'$^{\circ}$C')
 axs[i].set_ylabel('% productivity change')
-axs[i].set_xlabel('CO2 (ppm)')    
+axs[i].set_xlabel(r'CO$_{2}$ (ppm)')    
 
 
 # Labour productivity
@@ -297,7 +302,7 @@ for l_i, lev in enumerate(levels):
     
 axs[i].set_title('Soil Carbon Decay')
 axs[i].set_ylabel('Scaling factor')
-axs[i].set_xlabel('Absolute Temperature (C)')
+axs[i].set_xlabel(r'Absolute Temperature ($^{\circ}$C)')
 
 
 # Durability of Concrete 
@@ -347,7 +352,7 @@ for l_i, lev in enumerate(levels):
     
     axs[i].plot(sta_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
-axs[i].set_title(f'NPP Forest, CO2 = {CO2_fix}ppm')
+axs[i].set_title(fr'NPP Forest, CO$_{2}$ = {CO2_fix} ppm')
 axs[i].set_ylabel('Fractional Change')
 axs[i].set_xlabel('STA (K)')  
 
@@ -358,9 +363,9 @@ for l_i, lev in enumerate(levels):
     
     axs[i].plot(co2_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
-axs[i].set_title(f'NPP Forest, STA = {T_fix_sta}K')
+axs[i].set_title(f'NPP Forest, STA = {T_fix_sta} K')
 axs[i].set_ylabel('Fractional Change')
-axs[i].set_xlabel('CO2 (ppm)')  
+axs[i].set_xlabel(f'CO$_{2}$ (ppm)')  
 
 
 
@@ -377,7 +382,7 @@ for l_i, lev in enumerate(levels):
     
     axs[i].plot(sta_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
-axs[i].set_title(f'NPP Grass, CO2 = {CO2_fix}ppm')
+axs[i].set_title(fr'NPP Grass, CO$_{2}$ = {CO2_fix} ppm')
 axs[i].set_ylabel('Fractional Change')
 axs[i].set_xlabel('STA (K)')  
 
@@ -388,9 +393,9 @@ for l_i, lev in enumerate(levels):
     
     axs[i].plot(co2_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
-axs[i].set_title(f'NPP Grass, STA = {T_fix_sta}K')
+axs[i].set_title(f'NPP Grass, STA = {T_fix_sta} K')
 axs[i].set_ylabel('Fractional Change')
-axs[i].set_xlabel('CO2 (ppm)')  
+axs[i].set_xlabel(r'CO$_{2}$ (ppm)')  
 
 
 # Forest Biomass
