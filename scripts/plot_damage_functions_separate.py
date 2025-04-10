@@ -695,7 +695,7 @@ plt.tight_layout()
 plt.savefig(
     "../figures/separate/figure2_npp_forest_tas.png", dpi=100, transparent=True
 )
-# plt.clf()
+plt.clf()
 
 #%%
 fig, axs = plt.subplots(1, 1, figsize=(4, 4))
@@ -734,9 +734,20 @@ fig, axs = plt.subplots(1, 1, figsize=(4, 4))
 
 
 
-a = np.asarray([0.01, 0.126281692, 0.13])
-b = np.asarray([-0.05, -0.034654395, -0.01])
-c = np.asarray([0.0005, 0.000963654, 0.001])
+# a = np.asarray([0.01, 0.126281692, 0.13])
+# b = np.asarray([-0.05, -0.034654395, -0.01])
+# c = np.asarray([0.0005, 0.000963654, 0.001])
+
+
+params_df = params_in.loc[params_in['Variable'] == 'Grass.STA grass net primary production parameter[1]']
+a = np.asarray([params_df['Min'], params_df['Value'], params_df['Max']])
+
+params_df = params_in.loc[params_in['Variable'] == 'Grass.STA squared grass net primary production parameter[1]']
+b = np.asarray([params_df['Min'], params_df['Value'], params_df['Max']])
+
+params_df = params_in.loc[params_in['Variable'] == 'Grass.CO2 grass net primary production parameter[1]']
+c = np.asarray([params_df['Min'], params_df['Value'], params_df['Max']])
+
 
 for l_i, lev in enumerate(levels):
     resp = a[l_i]*sta_plot + b[l_i]*sta_plot**2 + c[l_i]*0 # CO2 cf 1980
@@ -800,8 +811,16 @@ fig, axs = plt.subplots(1, 1, figsize=(4, 4))
 
 
 
-a = np.asarray([0.2, 0.253488316, 0.35])
-b = np.asarray([-0.08, -0.048709811, -0.02])
+# a = np.asarray([0.2, 0.253488316, 0.35])
+# b = np.asarray([-0.08, -0.048709811, -0.02])
+
+
+params_df = params_in.loc[params_in['Variable'] == 'Forest.STA maximum aboveground biomass per area parameter[1]']
+a = np.asarray([params_df['Min'], params_df['Value'], params_df['Max']])
+
+params_df = params_in.loc[params_in['Variable'] == 'Forest.STA squared maximum aboveground biomass per area parameter[1]']
+b = np.asarray([params_df['Min'], params_df['Value'], params_df['Max']])
+
 
 for l_i, lev in enumerate(levels):
     resp = a[l_i]*sta_plot + b[l_i]*sta_plot**2
