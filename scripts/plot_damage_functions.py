@@ -28,6 +28,7 @@ zorders_l['medium'] = 2
 sta_plot = np.linspace(0, 5, 50)
 abs_t_plot = np.linspace(14, 20, 50)
 co2_plot = np.linspace(400, 800, 50)
+co2_plot_cf1980 = co2_plot - co2_plot[0]
 
 nx = 5
 ny = 5
@@ -348,24 +349,24 @@ b = np.asarray([-0.05, -0.023015026, -0.01])
 c = np.asarray([0.0005, 0.001, 0.001])
 
 for l_i, lev in enumerate(levels):
-    resp = a[l_i]*sta_plot + b[l_i]*sta_plot**2 + c[l_i]*CO2_fix
+    resp = a[l_i]*sta_plot + b[l_i]*sta_plot**2 + c[l_i]*0 # CO2 cf 1980
     
     axs[i].plot(sta_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
-axs[i].set_title(fr'NPP Forest, CO$_{2}$ = {CO2_fix} ppm')
+axs[i].set_title(fr'NPP Forest, CO$_{2}$ as 1980')
 axs[i].set_ylabel('Fractional Change')
-axs[i].set_xlabel('STA (K)')  
+axs[i].set_xlabel('STA cf 1980 (K)')  
 
 i += 1
 
 for l_i, lev in enumerate(levels):
-    resp = a[l_i]*T_fix_sta + b[l_i]*T_fix_sta**2 + c[l_i]*co2_plot
+    resp = a[l_i]*T_fix_sta + b[l_i]*T_fix_sta**2 + c[l_i]*co2_plot_cf1980
     
-    axs[i].plot(co2_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
+    axs[i].plot(co2_plot_cf1980, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
-axs[i].set_title(f'NPP Forest, STA = {T_fix_sta} K')
+axs[i].set_title('NPP Forest, STA as 1980')
 axs[i].set_ylabel('Fractional Change')
-axs[i].set_xlabel(f'CO$_{2}$ (ppm)')  
+axs[i].set_xlabel(f'CO$_{2}$ cf 1980 (ppm)')  
 
 
 
@@ -378,24 +379,24 @@ b = np.asarray([-0.05, -0.034654395, -0.01])
 c = np.asarray([0.0005, 0.000963654, 0.001])
 
 for l_i, lev in enumerate(levels):
-    resp = a[l_i]*sta_plot + b[l_i]*sta_plot**2 + c[l_i]*CO2_fix
+    resp = a[l_i]*sta_plot + b[l_i]*sta_plot**2 + c[l_i]*0 # CO2 cf 1980
     
     axs[i].plot(sta_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
-axs[i].set_title(fr'NPP Grass, CO$_{2}$ = {CO2_fix} ppm')
+axs[i].set_title(fr'NPP Grass, CO$_{2}$ as 1980')
 axs[i].set_ylabel('Fractional Change')
-axs[i].set_xlabel('STA (K)')  
+axs[i].set_xlabel('STA cf 1980 (K)')  
 
 i += 1
 
 for l_i, lev in enumerate(levels):
-    resp = a[l_i]*T_fix_sta + b[l_i]*T_fix_sta**2 + c[l_i]*co2_plot
+    resp = a[l_i]*T_fix_sta + b[l_i]*T_fix_sta**2 + c[l_i]*co2_plot_cf1980
     
-    axs[i].plot(co2_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
+    axs[i].plot(co2_plot_cf1980, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
-axs[i].set_title(f'NPP Grass, STA = {T_fix_sta} K')
+axs[i].set_title('NPP Grass, STA as 1980')
 axs[i].set_ylabel('Fractional Change')
-axs[i].set_xlabel(r'CO$_{2}$ (ppm)')  
+axs[i].set_xlabel(r'CO$_{2}$ cf 1980 (ppm)')  
 
 
 # Forest Biomass
