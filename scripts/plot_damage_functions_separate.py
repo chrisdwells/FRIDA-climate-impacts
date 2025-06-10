@@ -12,8 +12,6 @@ from matplotlib import font_manager
 
 # For combined Figure 1 in the climate impacts documentation paper
 
-# some have "sampled percentiles", others just on 3 levels, with
-# uncertainty ranges internally calibrated
 
 
 font_path = r"C:\Users\earcwel\AppData\Local\Microsoft\Windows\Fonts\OpenSans-VariableFont_wdth,wght.ttf"
@@ -23,25 +21,32 @@ prop = font_manager.FontProperties(fname=font_path)
 plt.rcParams['font.family'] = 'sans-serif'
 plt.rcParams['font.sans-serif'] = prop.get_name()
 
-fontsize = 18
+fontsize = 20
+fontsize2 = 22
 
 plt.rcParams.update({'font.size': fontsize})
 params = {'legend.fontsize': fontsize,
          'axes.labelsize': fontsize,
          'axes.titlesize':fontsize,
-         'xtick.labelsize':fontsize,
-         'ytick.labelsize':fontsize}
+         'xtick.labelsize':fontsize2,
+         'ytick.labelsize':fontsize2}
 pylab.rcParams.update(params)
 
 ytext_x = -0.06
+# ytext_x = -0.22
+
 ytext_y = 0.5
 xtext_x = 0.5
 xtext_y = -0.07
+# xtext_y = -0.21
+
 
 ctext_x_left = 0.01
 ctext_x_right = 0.99
 
 ctext_y_bot = 0.05
+# ctext_y_bot = 0.06
+
 ctext_y_top = 0.93
 
 params_in = pd.read_csv('../data/sampleParmsParscaleRanged.csv')
@@ -70,7 +75,12 @@ co2_plot = np.linspace(400, 800, 50)
 co2_plot_cf1980 = co2_plot - co2_plot[0]
 
 
-#%%
+def forceAspect(ax,aspect=1):
+    xleft, xright = ax.get_xlim()
+    ybottom, ytop = ax.get_ylim()
+    ax.set_aspect(abs((xright-xleft)/(ybottom-ytop))*aspect)
+    
+
 
 fig, axs = plt.subplots(1, 1, figsize=(4, 4))
 
@@ -98,18 +108,20 @@ for p_i, perc in enumerate(percentiles):
     plt.plot(abs_t_plot, resp, color=colors_p[perc], zorder=zorders_p[perc])
     
 
-plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
-plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+plt.xticks(ticks=[15, 20], labels = ['15', '20'])
+plt.yticks(ticks=[-40, plt.yticks()[0][-2]], labels = ['-40', plt.yticks()[1][-2]])
 
-plt.text(ytext_x, ytext_y, '% prod. change', transform=axs.transAxes, rotation=90, 
-     horizontalalignment='center', verticalalignment='center')
+plt.text(ytext_x, ytext_y, r'$\Delta$ prod. %', transform=axs.transAxes, rotation=90, 
+      horizontalalignment='center', verticalalignment='center')
 
-plt.text(xtext_x, xtext_y, r'Abs. Temp. ($^{\circ}$C)', transform=axs.transAxes,
-     horizontalalignment='center', verticalalignment='center')
+plt.text(xtext_x, xtext_y, r'Abs. T.', transform=axs.transAxes,
+      horizontalalignment='center', verticalalignment='center')
 
 plt.text(ctext_x_left, ctext_y_bot, fr'CO$_{2}$ = {CO2_fix} ppm', transform=axs.transAxes,
-     horizontalalignment='left', verticalalignment='center')
+      horizontalalignment='left', verticalalignment='center')
 
+
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -130,7 +142,7 @@ for p_i, perc in enumerate(percentiles):
 plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
 plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
 
-plt.text(ytext_x, ytext_y, '% prod. change', transform=axs.transAxes, rotation=90, 
+plt.text(ytext_x, ytext_y, r'$\Delta$ prod. %', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
 
 plt.text(xtext_x, xtext_y, r'CO$_{2}$ (ppm)', transform=axs.transAxes,
@@ -140,6 +152,7 @@ plt.text(ctext_x_left, ctext_y_top, f'Crops, Temp = {T_fix} ' + r'$^{\circ}$C', 
      horizontalalignment='left', verticalalignment='center')
 
 
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -175,9 +188,9 @@ for l_i, lev in enumerate(levels):
     
 
 plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
-plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+plt.yticks(ticks=[-60, plt.yticks()[0][-2]], labels = ['-60', plt.yticks()[1][-2]])
 
-plt.text(ytext_x, ytext_y, '% prod. change', transform=axs.transAxes, rotation=90, 
+plt.text(ytext_x, ytext_y, r'$\Delta$ prod. %', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
 
 plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
@@ -188,6 +201,7 @@ plt.text(ctext_x_left, ctext_y_bot, 'Low Exp.', transform=axs.transAxes,
 
 
 
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -218,9 +232,9 @@ for l_i, lev in enumerate(levels):
     plt.plot(sta_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
 plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
-plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+plt.yticks(ticks=[-60, plt.yticks()[0][-2]], labels = ['-60', plt.yticks()[1][-2]])
 
-plt.text(ytext_x, ytext_y, '% prod. change', transform=axs.transAxes, rotation=90, 
+plt.text(ytext_x, ytext_y, r'$\Delta$ prod. %', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
 
 plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
@@ -230,6 +244,7 @@ plt.text(ctext_x_left, ctext_y_bot, 'High Exp.', transform=axs.transAxes,
      horizontalalignment='left', verticalalignment='center')
 
 
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -260,9 +275,20 @@ for p_i, perc in enumerate(percentiles):
     resp = a[p_i]*sta_plot + b[p_i]*sta_plot**2
     plt.plot(sta_plot, resp, color=colors_p[perc], zorder=zorders_p[perc])
     
-plt.title('Thermoelectric')
-plt.ylabel('% efficiency change')
-plt.xlabel('STA (K)')  
+plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
+plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+plt.yticks(ticks=[plt.yticks()[0][1], -25], labels = [plt.yticks()[1][1], '-25'])
+
+plt.text(ytext_x, ytext_y, '% eff. change', transform=axs.transAxes, rotation=90, 
+     horizontalalignment='center', verticalalignment='center')
+
+plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
+     horizontalalignment='center', verticalalignment='center')
+
+plt.text(ctext_x_left, ctext_y_bot, 'Thermoelectric', transform=axs.transAxes,
+     horizontalalignment='left', verticalalignment='center')
+
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -284,9 +310,19 @@ for p_i, perc in enumerate(percentiles):
     resp = a[p_i]*sta_plot + b[p_i]*sta_plot**2
     plt.plot(sta_plot, resp, color=colors_p[perc], zorder=zorders_p[perc])
     
-plt.title('Hydroelectric')
-plt.ylabel('% efficiency change')
-plt.xlabel('STA (K)')  
+plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
+plt.yticks(ticks=[-15, plt.yticks()[0][-2]], labels = ['-15', plt.yticks()[1][-2]])
+
+plt.text(ytext_x, ytext_y, '% eff. change', transform=axs.transAxes, rotation=90, 
+     horizontalalignment='center', verticalalignment='center')
+
+plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
+     horizontalalignment='center', verticalalignment='center')
+
+plt.text(ctext_x_left, ctext_y_bot, 'Hydroelectric', transform=axs.transAxes,
+     horizontalalignment='left', verticalalignment='center')
+
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -321,6 +357,8 @@ plt.text(ytext_x, ytext_y, 'CDD', transform=axs.transAxes, rotation=90,
 plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
      horizontalalignment='center', verticalalignment='center')
 
+forceAspect(axs)
+
 plt.tight_layout()
 plt.savefig(
     "../figures/separate/figure2_cdd.png", dpi=100, transparent=True
@@ -345,13 +383,16 @@ for l_i, lev in enumerate(levels):
     plt.plot(sta_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
 plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
-plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+# plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+plt.yticks(ticks=[plt.yticks()[0][1], 1400], labels = [plt.yticks()[1][1], '1400'])
 
 plt.text(ytext_x, ytext_y, 'HDD', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
 
 plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
      horizontalalignment='center', verticalalignment='center')
+
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -374,17 +415,28 @@ assert pkl_in['Percentiles'].all() == percentiles.all()
 ## Cold
 
 
-
 a = pkl_in['Demographics.Cold mortality sensitivity to T[1]']
 b = pkl_in['Demographics.Cold mortality sensitivity to T2[1]']
 
 for p_i, perc in enumerate(percentiles):
     resp = a[p_i]*sta_plot + b[p_i]*sta_plot**2
-    plt.plot(sta_plot, resp, color=colors_p[perc], zorder=zorders_p[perc])
+    plt.plot(sta_plot, 100*resp, color=colors_p[perc], zorder=zorders_p[perc])
     
-plt.title('Cold Mortality')
-plt.ylabel('% change')
-plt.xlabel('STA (K)')  
+
+plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
+# plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+plt.yticks(ticks=[-5, plt.yticks()[0][-2]], labels = ['-5', plt.yticks()[1][-2]])
+
+plt.text(ytext_x, ytext_y, '% Mort. change', transform=axs.transAxes, rotation=90, 
+     horizontalalignment='center', verticalalignment='center')
+
+plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
+     horizontalalignment='center', verticalalignment='center')
+
+plt.text(ctext_x_left, ctext_y_bot, 'Cold Mortality', transform=axs.transAxes,
+     horizontalalignment='left', verticalalignment='center')
+
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -399,17 +451,26 @@ fig, axs = plt.subplots(1, 1, figsize=(4, 4))
 ## Hot
 
 
-
 a = pkl_in['Demographics.Hot mortality sensitivity to T[1]']
 b = pkl_in['Demographics.Hot mortality sensitivity to T2[1]']
 
 for p_i, perc in enumerate(percentiles):
     resp = a[p_i]*sta_plot + b[p_i]*sta_plot**2
-    plt.plot(sta_plot, resp, color=colors_p[perc], zorder=zorders_p[perc])
+    plt.plot(sta_plot, 100*resp, color=colors_p[perc], zorder=zorders_p[perc])
     
-plt.title('Hot Mortality')
-plt.ylabel('% change')
-plt.xlabel('STA (K)')  
+plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
+plt.yticks(ticks=[plt.yticks()[0][1], 17], labels = [plt.yticks()[1][1],'17'])
+# 
+plt.text(ytext_x, ytext_y, '% Mort. change', transform=axs.transAxes, rotation=90, 
+     horizontalalignment='center', verticalalignment='center')
+
+plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
+     horizontalalignment='center', verticalalignment='center')
+
+plt.text(ctext_x_left, ctext_y_top, 'Hot Mortality', transform=axs.transAxes,
+     horizontalalignment='left', verticalalignment='center')
+
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -440,9 +501,17 @@ for p_i, perc in enumerate(percentiles):
     resp = a[p_i]*sta_plot + b[p_i]*sta_plot**2
     plt.plot(sta_plot, resp, color=colors_p[perc], zorder=zorders_p[perc])
     
-plt.title('Extremes Exposure')
-plt.ylabel('Per person per year')
-plt.xlabel('STA (K)')  
+
+plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
+plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+
+plt.text(ytext_x, ytext_y, 'Exp. /pop. /yr', transform=axs.transAxes, rotation=90, 
+     horizontalalignment='center', verticalalignment='center')
+
+plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
+     horizontalalignment='center', verticalalignment='center')
+
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -467,13 +536,16 @@ for l_i, lev in enumerate(levels):
     plt.plot(sta_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
 plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
-plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+# plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+plt.yticks(ticks=[1, 5], labels = ['1', '5'])
 
 plt.text(ytext_x, ytext_y, 'Scaling factor', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
 
 plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
      horizontalalignment='center', verticalalignment='center')
+
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -504,6 +576,7 @@ plt.text(ytext_x, ytext_y, 'Scaling factor', transform=axs.transAxes, rotation=9
 plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
      horizontalalignment='center', verticalalignment='center')
 
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -538,6 +611,8 @@ plt.text(ytext_x, ytext_y, 'Scaling factor', transform=axs.transAxes, rotation=9
 plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
      horizontalalignment='center', verticalalignment='center')
 
+forceAspect(axs)
+
 plt.tight_layout()
 plt.savefig(
     "../figures/separate/figure2_evapo.png", dpi=100, transparent=True
@@ -556,10 +631,13 @@ fig, axs = plt.subplots(1, 1, figsize=(4, 4))
 params_df = params_in.loc[params_in['Variable'] == 'soil carbon decay.temp response[1]']
 a = np.asarray([params_df['Min'], params_df['Value'], params_df['Max']])
 
-b = 290.0287445
+params_df = params_in.loc[params_in['Variable'] == 'soil carbon decay.e0[1]']
+b = np.asarray([params_df['Min'], params_df['Value'], params_df['Max']])
+
+b = b[::-1]
 
 for l_i, lev in enumerate(levels):
-    resp = np.exp(b*(1.0/(a[l_i]+10)-1.0/(abs_t_plot+a[l_i])))
+    resp = np.exp(b[l_i]*(1.0/(a[l_i]+10)-1.0/(abs_t_plot+a[l_i])))
     
     plt.plot(abs_t_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
@@ -567,11 +645,17 @@ for l_i, lev in enumerate(levels):
 plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
 plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
 
+plt.xticks(ticks=[15, 20], labels = ['15', '20'])
+plt.yticks(ticks=[1.3, 1.8], labels = ['1.3', '1.8'])
+
+
 plt.text(ytext_x, ytext_y, 'Scaling factor', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
 
-plt.text(xtext_x, xtext_y, r'Abs. Temp. ($^{\circ}$C)', transform=axs.transAxes,
+plt.text(xtext_x, xtext_y, r'Abs. T.', transform=axs.transAxes,
      horizontalalignment='center', verticalalignment='center')
+
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -597,13 +681,15 @@ for l_i, lev in enumerate(levels):
     plt.plot(sta_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
     
 plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
-plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+plt.yticks(ticks=[-40, plt.yticks()[0][-2]], labels = ['-40', plt.yticks()[1][-2]])
 
 plt.text(ytext_x, ytext_y, '% change', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
 
 plt.text(xtext_x, xtext_y, 'STA cf 1980', transform=axs.transAxes,
      horizontalalignment='center', verticalalignment='center')
+
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -630,17 +716,18 @@ b = np.asarray([params_df['Min'], params_df['Value'], params_df['Max']])
 for l_i, lev in enumerate(levels):
     resp = a[l_i]*sta_plot**b[l_i]
     
-    plt.plot(sta_plot, resp, color=colors_l[lev], zorder=zorders_l[lev])
+    plt.plot(sta_plot, 100*resp, color=colors_l[lev], zorder=zorders_l[lev])
     
 plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
-plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+plt.yticks(ticks=[plt.yticks()[0][1], 0.9], labels = [plt.yticks()[1][1], '0.9'])
 
-plt.text(ytext_x, ytext_y, 'Annual Frac.', transform=axs.transAxes, rotation=90, 
+plt.text(ytext_x, ytext_y, 'Annual %', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
 
 plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
      horizontalalignment='center', verticalalignment='center')
 
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -679,7 +766,7 @@ for l_i, lev in enumerate(levels):
     
 
 plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
-plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+plt.yticks(ticks=[-0.2, 0.3], labels = ['-0.2', '0.3'])
 
 plt.text(ytext_x, ytext_y-0.05, 'Frac. Change', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
@@ -690,6 +777,7 @@ plt.text(xtext_x-0.05, xtext_y, 'STA cf 1980', transform=axs.transAxes,
 plt.text(ctext_x_left, ctext_y_bot, fr'Forest; CO$_{2}$ as 1980', transform=axs.transAxes,
      horizontalalignment='left', verticalalignment='center')
 
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -699,7 +787,6 @@ plt.clf()
 
 #%%
 fig, axs = plt.subplots(1, 1, figsize=(4, 4))
-
 
 
 for l_i, lev in enumerate(levels):
@@ -713,18 +800,19 @@ plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks
 plt.text(ytext_x, ytext_y, 'Frac. Change', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
 
-plt.text(xtext_x, xtext_y, f'CO$_{2}$ cf 1980 (ppm)', transform=axs.transAxes,
+plt.text(xtext_x, xtext_y, f'CO$_{2}$ cf 1980', transform=axs.transAxes,
      horizontalalignment='center', verticalalignment='center')
 
 plt.text(ctext_x_left, ctext_y_top, 'Forest; STA as 1980', transform=axs.transAxes,
      horizontalalignment='left', verticalalignment='center')
 
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
     "../figures/separate/figure2_npp_forest_co2.png", dpi=100, transparent=True
 )
-plt.clf()
+# plt.clf()
 
 #%%
 fig, axs = plt.subplots(1, 1, figsize=(4, 4))
@@ -756,17 +844,18 @@ for l_i, lev in enumerate(levels):
     
 
 plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
-plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+plt.yticks(ticks=[-0.5, plt.yticks()[0][-2]], labels = ['-0.5', plt.yticks()[1][-2]])
 
 plt.text(ytext_x, ytext_y-0.05, 'Frac. Change', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
 
-plt.text(xtext_x-0.08, xtext_y, 'STA cf 1980 (K)', transform=axs.transAxes,
+plt.text(xtext_x-0.08, xtext_y, 'STA cf 1980', transform=axs.transAxes,
      horizontalalignment='center', verticalalignment='center')
 
 plt.text(ctext_x_left, ctext_y_bot, fr'Grass; CO$_{2}$ as 1980', transform=axs.transAxes,
      horizontalalignment='left', verticalalignment='center')
 
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -789,12 +878,13 @@ plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks
 plt.text(ytext_x, ytext_y, 'Frac. Change', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
 
-plt.text(xtext_x, xtext_y, f'CO$_{2}$ cf 1980 (ppm)', transform=axs.transAxes,
+plt.text(xtext_x, xtext_y, f'CO$_{2}$ cf 1980', transform=axs.transAxes,
      horizontalalignment='center', verticalalignment='center')
 
 plt.text(ctext_x_left, ctext_y_top, 'Grass; STA as 1980', transform=axs.transAxes,
      horizontalalignment='left', verticalalignment='center')
 
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
@@ -805,11 +895,7 @@ plt.clf()
 #%%
 fig, axs = plt.subplots(1, 1, figsize=(4, 4))
 
-
-
 # Forest Biomass
-
-
 
 # a = np.asarray([0.2, 0.253488316, 0.35])
 # b = np.asarray([-0.08, -0.048709811, -0.02])
@@ -828,13 +914,15 @@ for l_i, lev in enumerate(levels):
     
 
 plt.xticks(ticks=[plt.xticks()[0][1], plt.xticks()[0][-2]], labels = [plt.xticks()[1][1], plt.xticks()[1][-2]])
-plt.yticks(ticks=[plt.yticks()[0][1], plt.yticks()[0][-2]], labels = [plt.yticks()[1][1], plt.yticks()[1][-2]])
+plt.yticks(ticks=[-0.4, 0.6], labels = ['-0.4', '0.6'])
 
 plt.text(ytext_x, ytext_y, 'Scaling factor', transform=axs.transAxes, rotation=90, 
      horizontalalignment='center', verticalalignment='center')
 
 plt.text(xtext_x, xtext_y, 'STA (K)', transform=axs.transAxes,
      horizontalalignment='center', verticalalignment='center')
+
+forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
