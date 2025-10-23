@@ -125,7 +125,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_crops_tas.png", dpi=100, transparent=True
+    "../figures/separate/crops_tas.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -156,7 +156,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_crops_co2.png", dpi=100, transparent=True
+    "../figures/separate/crops_co2.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -205,7 +205,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_labour_low.png", dpi=100, transparent=True
+    "../figures/separate/labour_low.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -248,7 +248,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_labour_high.png", dpi=100, transparent=True
+    "../figures/separate/labour_high.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -292,7 +292,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_thermo.png", dpi=100, transparent=True
+    "../figures/separate/thermo.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -326,7 +326,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_hydro.png", dpi=100, transparent=True
+    "../figures/separate/hydro.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -361,7 +361,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_cdd.png", dpi=100, transparent=True
+    "../figures/separate/cdd.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -396,7 +396,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_hdd.png", dpi=100, transparent=True
+    "../figures/separate/hdd.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -440,7 +440,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_mort_cold.png", dpi=100, transparent=True
+    "../figures/separate/mort_cold.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -474,7 +474,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_mort_hot.png", dpi=100, transparent=True
+    "../figures/separate/mort_hot.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -515,7 +515,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_extremes_exposure.png", dpi=100, transparent=True
+    "../figures/separate/extremes_exposure.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -549,7 +549,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_loan_failure.png", dpi=100, transparent=True
+    "../figures/separate/loan_failure.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -580,7 +580,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_govt_spending.png", dpi=100, transparent=True
+    "../figures/separate/govt_spending.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -615,7 +615,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_evapo.png", dpi=100, transparent=True
+    "../figures/separate/evapo.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -659,7 +659,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_soil_carbon.png", dpi=100, transparent=True
+    "../figures/separate/soil_carbon.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -693,7 +693,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_concrete.png", dpi=100, transparent=True
+    "../figures/separate/concrete.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -731,7 +731,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_energy_infra.png", dpi=100, transparent=True
+    "../figures/separate/energy_infra.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -781,7 +781,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_npp_forest_tas.png", dpi=100, transparent=True
+    "../figures/separate/npp_forest_tas.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -810,7 +810,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_npp_forest_co2.png", dpi=100, transparent=True
+    "../figures/separate/npp_forest_co2.png", dpi=100, transparent=True
 )
 # plt.clf()
 
@@ -859,7 +859,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_npp_grass_tas.png", dpi=100, transparent=True
+    "../figures/separate/npp_grass_tas.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -888,7 +888,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_npp_grass_co2.png", dpi=100, transparent=True
+    "../figures/separate/npp_grass_co2.png", dpi=100, transparent=True
 )
 plt.clf()
 
@@ -926,7 +926,7 @@ forceAspect(axs)
 
 plt.tight_layout()
 plt.savefig(
-    "../figures/separate/figure2_npp_forest_biomass.png", dpi=100, transparent=True
+    "../figures/separate/npp_forest_biomass.png", dpi=100, transparent=True
 )
 plt.clf()
 
